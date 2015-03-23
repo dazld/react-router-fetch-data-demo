@@ -17,10 +17,11 @@ if (('ontouchstart' in window)||(window.DocumentTouch && document instanceof Doc
 var appRoot = document.getElementById('app');
 
 router.run(function(Handler, state){
+    console.log('router run called');
 
-    var fetchingData = state.routes.map(function(r){
-        return r.handler.fetchData();
-    });
+    var fetchingData = state.routes
+            .filter((r) => r.handler.fetchData)
+            .map((r) => r.handler.fetchData());
 
     Promise.all(fetchingData).then(function(data){
         React.render(<Handler params={state.params} data={data} />, appRoot);
