@@ -1,3 +1,4 @@
+"use strict";
 var React = require('react');
 var Router = require('react-router');
 
@@ -22,8 +23,8 @@ router.run(function(Handler, state){
     });
 
     Promise.all(fetchingData).then(function(data){
-        React.render(<Handler params={state.params} />, appRoot);
-    })
+        React.render(<Handler params={state.params} data={data} />, appRoot);
+    });
 
 });
 
