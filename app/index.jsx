@@ -22,12 +22,9 @@ router.run(function(Handler, state){
     });
 
     Promise.all(fetchingData).then(function(data){
-        debugger;
         React.render(<Handler params={state.params} />, appRoot);
     })
 
-    // debugger;
-    
 });
 
 
