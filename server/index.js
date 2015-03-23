@@ -13,6 +13,7 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var expressLayouts = require('express-ejs-layouts');
 var Router = require('react-router');
+var Promise = require('bluebird');
 
 var routes = require('../app/routes/routes.jsx');
 var app = express();
@@ -25,6 +26,10 @@ app.disable('view cache');
 app.use(cookieParser());
 app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, '..', 'static')));
+
+app.use('/favicon.ico', function(req, res){
+    res.send(404);
+})
 
 app.use(function(req,res){
     var router = Router.create({
@@ -49,16 +54,22 @@ app.use(function(req,res){
         var handler = React.createFactory(Handler);
 
         // console.log(state)
-
-
-        var content = React.renderToString(handler({
-            params: state.params
-        }));
-
-
-        res.render('main', {
-            content: content
+        var fetchingData = state.routes.map(function(r){
+            return r.handler.fetchData();
         });
+
+        Promise.all(fetchingData).then(function(data){
+            var content = React.renderToString(handler({
+                params: state.params
+            }));
+
+
+            res.render('main', {
+                content: content
+            });    
+        });
+
+        
     });
 });
 
