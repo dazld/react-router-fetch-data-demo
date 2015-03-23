@@ -1,7 +1,7 @@
 "use strict";
 var React = require('react');
 var Router = require('react-router');
-
+var Promise = require('bluebird');
 
 var routes = require('./routes/routes.jsx');
 

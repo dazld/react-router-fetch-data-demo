@@ -1,3 +1,4 @@
+var Promise = require('bluebird');
 var React = require('react');
 var Router = require('react-router');
 

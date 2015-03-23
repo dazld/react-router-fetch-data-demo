@@ -14,6 +14,7 @@ var cookieParser = require('cookie-parser');
 var expressLayouts = require('express-ejs-layouts');
 var Router = require('react-router');
 
+var routes = require('../app/routes/routes.jsx');
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -23,11 +24,41 @@ app.disable('etag');
 app.disable('view cache');
 app.use(cookieParser());
 app.use(expressLayouts);
-app.use('/static', express.static(path.join(__dirname, '..', 'static')));
+app.use(express.static(path.join(__dirname, '..', 'static')));
 
 app.use(function(req,res){
-    res.render('main', {
-        content: 'hey there'
+    var router = Router.create({
+        onAbort: function(options){
+            var destination = options.to || '/en';
+
+            res.redirect(302, destination);
+            console.log('Redirecting to:', destination);
+        },
+        onError: function(err){
+            console.log('onerror:', err);
+            throw err;
+        },
+        routes: routes,
+        location: req.url
+    });
+
+    router.run(function(Handler, state) {
+
+        //  we know which route, we know what params
+
+        var handler = React.createFactory(Handler);
+
+        // console.log(state)
+
+
+        var content = React.renderToString(handler({
+            params: state.params
+        }));
+
+
+        res.render('main', {
+            content: content
+        });
     });
 });
 
