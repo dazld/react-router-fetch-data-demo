@@ -9,10 +9,11 @@ var node;
 
 var webpackConfig = require('./webpack.config');
 
-var compiler = webpack(webpackConfig);
-
 webpackConfig.debug = true;
 webpackConfig.devtool = 'source-map';
+
+var compiler = webpack(webpackConfig);
+
 
 gulp.task('client', function(cb){
     compiler.run(function(err, stats){

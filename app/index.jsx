@@ -1,16 +1,34 @@
 var React = require('react');
+var Router = require('react-router');
 
-var React = require('react');
 
-var App = React.createClass({
+var routes = require('./routes/routes.jsx');
 
-    render: function() {
-        return (
-            <div />
-        );
-    }
-
+var router = Router.create({
+    location: Router.HistoryLocation,
+    routes: routes
 });
 
-module.exports = App;
+if (('ontouchstart' in window)||(window.DocumentTouch && document instanceof DocumentTouch)){
+    React.initializeTouchEvents(true);
+}
+
+var appRoot = document.getElementById('app');
+
+router.run(function(Handler, state){
+
+    var fetchingData = state.routes.map(function(r){
+        return r.handler.fetchData();
+    });
+
+    Promise.all(fetchingData).then(function(data){
+        debugger;
+        React.render(<Handler params={state.params} />, appRoot);
+    })
+
+    // debugger;
+    
+});
+
+
 
