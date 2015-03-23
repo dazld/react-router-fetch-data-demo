@@ -1,0 +1,31 @@
+{
+  "name": "react-router-fetch-data-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dazld/react-router-fetch-data-demo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dazld/react-router-fetch-data-demo/issues"
+  },
+  "homepage": "https://github.com/dazld/react-router-fetch-data-demo",
+  "dependencies": {
+    "ampersand-model": "^5.0.0",
+    "ejs": "^2.3.1",
+    "ejs-layouts": "0.0.1",
+    "express": "^4.12.3",
+    "flux": "^2.0.1",
+    "gulp": "^3.8.11",
+    "react": "^0.13.1",
+    "react-router": "^0.13.1",
+    "ubiquisync": "^1.0.0",
+    "webpack": "^1.7.3"
+  }
+}
