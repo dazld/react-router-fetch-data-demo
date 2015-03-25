@@ -15,16 +15,12 @@ var App = require('../components/app.jsx');
 
 
 var Thing = React.createClass({
-    statics: {
-        fetchData: function(){
-            return new Promise(function(resolve, reject){
-                setTimeout(resolve.bind(null, 1), 1000);
-            });
-        }
-    },
     render: function() {
         return (
-            <div>another thing</div>
+            <div>
+                <h1>{this.props.data[0].name}</h1>
+                <Router.Link to='root'>home</Router.Link>
+            </div>
         );
     }
 
@@ -34,7 +30,7 @@ module.exports = Thing;
 
 var routes = (
     <Route handler={App} path='/' name='root'>
-        <Route handler={Thing} path=':id' name='other' />
+        <Route handler={Thing} path=':locationId' name='location'></Route>
     </Route>
 );
 

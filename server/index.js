@@ -1,11 +1,10 @@
-
+"use strict";
 
 var path = require('path');
 // enable jsx in node
 
 require('node-jsx').install({
-    extension: '.jsx',
-    harmony: true
+    extension: '.jsx'
 });
 
 var React = require('react');
@@ -27,14 +26,19 @@ app.use(cookieParser());
 app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, '..', 'static')));
 
+var Locations = require('../app/collections/locations').Locations;
+
 app.use('/favicon.ico', function(req, res){
     res.send(404);
-})
+});
 
 app.use(function(req,res){
+
+    var locations = new Locations();
+
     var router = Router.create({
         onAbort: function(options){
-            var destination = options.to || '/en';
+            var destination = options.to || '/';
 
             res.redirect(302, destination);
             console.log('Redirecting to:', destination);
@@ -50,19 +54,26 @@ app.use(function(req,res){
     router.run(function(Handler, state) {
 
         //  we know which route, we know what params
-
         var handler = React.createFactory(Handler);
 
         // console.log(state)
-        var fetchingData = state.routes.map(function(r){
-            return r.handler.fetchData();
-        });
+        // var fetchingData = state.routes.filter(function(r){
+        //     return r.handler.fetchData;
+        // }).map(function(r){
+        //     return r.handler.fetchData();
+        // });
+
+        console.log(state.params);
+
+        var fetchingData = [];
+        if (state.params.locationId) {
+            fetchingData.push(locations.getOrFetch(state.params.locationId));
+        }
 
         Promise.all(fetchingData).then(function(data){
             var content = React.renderToString(handler({
-                params: state.params
+                data: data
             }));
-
 
             res.render('main', {
                 content: content

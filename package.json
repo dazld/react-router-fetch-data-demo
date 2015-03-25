@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/dazld/react-router-fetch-data-demo",
   "dependencies": {
+    "ampersand-collection": "^1.4.2",
+    "ampersand-collection-rest-mixin": "^4.1.0",
     "ampersand-model": "^5.0.0",
     "babel-core": "^4.7.16",
     "babel-loader": "^4.2.0",
