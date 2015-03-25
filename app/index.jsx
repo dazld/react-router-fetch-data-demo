@@ -19,18 +19,6 @@ if (('ontouchstart' in window)||(window.DocumentTouch && document instanceof Doc
 var appRoot = document.getElementById('app');
 var locations = new Locations();
 
-// this is pretty horrific, but trying something out
-locations.getOrFetch = function(id, options, cb){
-    return new Promise(function(resolve, reject){
-        return Locations.prototype.getOrFetch.call(this, id, function(err, model){
-            if (err) {
-                reject(err);
-            } else {
-                resolve(model);
-            }
-        });
-    }.bind(this));
-}.bind(locations);
 
 router.run(function(Handler, state){
     console.log('router run called', state);
