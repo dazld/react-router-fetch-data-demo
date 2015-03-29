@@ -32,6 +32,7 @@
     "gulp": "^3.8.11",
     "gulp-util": "^3.0.4",
     "json-loader": "^0.5.1",
+    "lodash": "^3.6.0",
     "node-jsx": "^0.12.4",
     "react": "^0.13.1",
     "react-router": "^0.13.1",

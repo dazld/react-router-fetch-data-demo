@@ -14,27 +14,26 @@ var expressLayouts = require('express-ejs-layouts');
 var Router = require('react-router');
 var Promise = require('bluebird');
 
+var makeController = require('../app/controllers/app');
+
 var routes = require('../app/routes/routes.jsx');
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('layout', 'layout');
-app.disable('etag');
-app.disable('view cache');
 app.use(cookieParser());
 app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, '..', 'static')));
-
-var Locations = require('../app/collections/locations').Locations;
 
 app.use('/favicon.ico', function(req, res){
     res.send(404);
 });
 
+var runController = makeController(React.renderToString.bind(React));
+
 app.use(function(req,res){
 
-    var locations = new Locations();
 
     var router = Router.create({
         onAbort: function(options){
@@ -53,34 +52,16 @@ app.use(function(req,res){
 
     router.run(function(Handler, state) {
 
-        //  we know which route, we know what params
-        var handler = React.createFactory(Handler);
-
-        // console.log(state)
-        // var fetchingData = state.routes.filter(function(r){
-        //     return r.handler.fetchData;
-        // }).map(function(r){
-        //     return r.handler.fetchData();
-        // });
-
-        console.log(state.params);
-
-        var fetchingData = [];
-        if (state.params.locationId) {
-            fetchingData.push(locations.getOrFetch(state.params.locationId));
-        }
-
-        Promise.all(fetchingData).then(function(data){
-            var content = React.renderToString(handler({
-                data: data
-            }));
-
+        runController(Handler, state).then(function(result){
             res.render('main', {
-                content: content
-            });    
+                content: result.rendered,
+                data: JSON.stringify(result.data)
+            });
+        }).catch(function(err){
+            console.log(err);
+            throw err;
         });
 
-        
     });
 });
 

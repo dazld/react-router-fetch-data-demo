@@ -12,17 +12,26 @@ var App = React.createClass({
     },
     getInitialState: function(){
         // get data from store
-        return {};
+        return {
+            search: this.props.search || ''
+        };
+    },
+    handleInput: function(event){
+        this.setState({
+            search: event.target.value.substr(0, 140)
+        });
     },
     render: function() {
-        console.log(this.props.data)
+
         var pars = {
             locationId: 2950159
         }
         return (
             <div>
                 <Router.Link to="location" params={pars}>thing</Router.Link>
+                <input type="text" value={this.state.search} onChange={this.handleInput} />
                 <Router.RouteHandler data={this.props.data} />
+
             </div>
         );
     }

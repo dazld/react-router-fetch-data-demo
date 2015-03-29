@@ -15,10 +15,17 @@ var App = require('../components/app.jsx');
 
 
 var Thing = React.createClass({
+    mixins: [Router.State],
+    getInitialState: function(){
+        var params = this.getParams();
+        return {
+            data: this.props.data.locations.get(params.locationId)
+        }
+    },
     render: function() {
         return (
             <div>
-                <h1>{this.props.data[0].name}</h1>
+                <h1>{this.state.data.name}</h1>
                 <Router.Link to='root'>home</Router.Link>
             </div>
         );
