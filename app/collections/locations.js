@@ -1,26 +1,11 @@
 var Collection = require('ampersand-collection');
 var restMixin = require('ampersand-collection-rest-mixin');
 var Promise = require('bluebird');
-var Model = require('ampersand-model');
 var sync = require('ubiquisync');
 var qs = require('querystring');
 var path = require('path');
 
-var Location = Model.extend({
-    sync: sync,
-    urlRoot: "http://api.openweathermap.org/data/2.5/weather",
-    url: function() {
-
-        var url = this.urlRoot + '?' + qs.stringify({
-            id: this.get('id'),
-            // APPID: config.APPID,
-            units: 'metric'
-        });
-
-        return url;
-    },
-    extraProperties: 'allow'
-});
+var Location = require('../models/location');
 
 
 var Locations = Collection.extend(restMixin, {
@@ -45,5 +30,4 @@ var Locations = Collection.extend(restMixin, {
     }
 });
 
-module.exports.Location = Location;
-module.exports.Locations = Locations;
+module.exports = Locations;

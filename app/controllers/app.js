@@ -12,25 +12,17 @@ var SearchResults = require('../collections/search-results');
 // returns a function that can be invoked when the Router has finished matching
 module.exports = function makeController (render) {
 
-    return function(Handler, state){
-
-        var locations = new Locations();
-        var searchResults = new SearchResults();
-
-        var store = {
-            locations: locations,
-            searchResults: searchResults
-        };
+    return function(Handler, state, store){
 
         var fetchingData = {};
 
         if (state.params.locationId) {
-            fetchingData.locations = locations.getOrFetch(state.params.locationId);
+            fetchingData.locations = store.locations.getOrFetch(state.params.locationId);
         }
 
 
-        return Promise.props(fetchingData).then(function(){
-
+        return Promise.props(fetchingData).then(function(data){
+            console.log('fetched all data', data);
             return React.createElement(Handler, {
                 data: store
             }); 

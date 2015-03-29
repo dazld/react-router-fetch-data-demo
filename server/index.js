@@ -34,6 +34,8 @@ var runController = makeController(React.renderToString.bind(React));
 
 app.use(function(req,res){
 
+    var makeStore = require('../app/stores/all');
+    var appStore = makeStore();
 
     var router = Router.create({
         onAbort: function(options){
@@ -52,7 +54,7 @@ app.use(function(req,res){
 
     router.run(function(Handler, state) {
 
-        runController(Handler, state).then(function(result){
+        runController(Handler, state, appStore).then(function(result){
             res.render('main', {
                 content: result.rendered,
                 data: JSON.stringify(result.data)

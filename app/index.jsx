@@ -1,3 +1,4 @@
+/* global DocumentTouch */
 "use strict";
 var React = require('react');
 var Router = require('react-router');
@@ -24,10 +25,13 @@ var router = Router.create({
 var boundRender = _.partialRight(React.render, appRoot);
 var runController = makeAppController(boundRender);
 
+var makeStore = require('./stores/all');
+var appStore = window.s = makeStore();
+
 router.run(function(Handler, state){
     console.log('router run called', state);
 
-    runController(Handler, state).then(function(){
+    runController(Handler, state, appStore).then(function(){
         console.log('render complete');
     }).catch(function(e){
         console.log(e);
