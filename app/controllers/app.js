@@ -14,15 +14,22 @@ module.exports = function makeController (render) {
 
     return function(Handler, state, store){
 
-        var fetchingData = {};
 
-        if (state.params.locationId) {
-            fetchingData.locations = store.locations.getOrFetch(state.params.locationId);
-        }
+        var fetchingData = state.routes.filter(function(route){
+            return route.handler.fetchData;
+        }).reduce(function(fetchPromises, route){
+            fetchPromises[route.name] = route.handler.fetchData(store, state.params);
+            return fetchPromises;
+        },{});
+
+        // var fetchingData = {};
+
+        // if (state.params.locationId) {
+        //     fetchingData.locations = store.locations.getOrFetch(state.params.locationId);
+        // }
 
 
         return Promise.props(fetchingData).then(function(data){
-            console.log('fetched all data', data);
             return React.createElement(Handler, {
                 data: store
             }); 

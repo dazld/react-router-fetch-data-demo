@@ -3,19 +3,26 @@ var React = require('react');
 var Router = require('react-router');
 
 var Link = Router.Link;
-
+var Promise = require('bluebird');
 
 var App = React.createClass({
     statics: {
         fetchData: function(){
             // tell store what we need
-        }
+            return Promise.resolve(true);
+        },
+        // willTransitionTo: function(){
+            // check user object for validity?
+        // }
     },
     componentDidMount: function(){
-        this.props.data.locations.on('sync', this.forceUpdate);
+        // this.props.data.locations.on('all', this.setState);
     },
     componentDidUnmount: function(){
-        this.props.data.locations.off('sync', this.forceUpdate);
+        // this.props.data.locations.off('all', this.setState);
+    },
+    componentWillReceiveProps: function(){
+        // this.props.data.locations.once('sync', this.forceUpdate)
     },
     getInitialState: function(){
         // get data from store

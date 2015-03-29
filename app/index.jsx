@@ -29,10 +29,9 @@ var makeStore = require('./stores/all');
 var appStore = window.s = makeStore();
 
 router.run(function(Handler, state){
-    console.log('router run called', state);
 
     runController(Handler, state, appStore).then(function(){
-        console.log('render complete');
+        // console.log('render complete');
     }).catch(function(e){
         console.log(e);
     });
