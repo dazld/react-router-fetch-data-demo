@@ -10,7 +10,6 @@ var Location = React.createClass({
     },
     getInitialState: function(){
         var params = this.getParams();
-        // console.log(this.props)
         return {
             data: this.props.data.locations.get(params.locationId)
         };
@@ -19,6 +18,7 @@ var Location = React.createClass({
         this.setState(this.getInitialState());
     },
     render: function() {
+        console.log(this.state.data);
         return (
             <div>
                 <h1>{this.state.data.name}</h1>
