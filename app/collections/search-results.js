@@ -11,7 +11,7 @@ var SearchResults = BaseCollection.extend({
 
         var searchTerm = encodeURIComponent(this.searchTerm);
 
-        return 'http://api.openweathermap.org/data/2.5/find?q='+searchTerm+'&type=like';
+        return 'http://localhost:8080/api/data/2.5/find?q='+searchTerm+'&type=like';
     },
     setSearchTerm: function(searchTerm){
         this.searchTerm = searchTerm;

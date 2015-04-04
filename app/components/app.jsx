@@ -1,3 +1,4 @@
+"use strict";
 var Promise = require('bluebird');
 var React = require('react');
 var Router = require('react-router');
@@ -5,7 +6,6 @@ var Router = require('react-router');
 var _ = require('lodash');
 
 var Link = Router.Link;
-var Promise = require('bluebird');
 
 var App = React.createClass({
     statics: {
@@ -19,7 +19,6 @@ var App = React.createClass({
     },
     componentDidMount: function(){
         // this.props.data.searchResults.on('all', this.setState);
-        this.check = Date.now();
         this.doSearch = _.debounce(this.doSearch, 1000);
     },
     componentDidUnmount: function(){
@@ -41,7 +40,6 @@ var App = React.createClass({
         }, this.doSearch);
     },
     doSearch: function(){
-        console.log(this.check)
         this.props.data.searchResults.setSearchTerm(this.state.search);
         this.props.data.searchResults.fetch().then(this.forceUpdate.bind(this));
     },
@@ -53,7 +51,7 @@ var App = React.createClass({
             name: 'London',
             id: '6058560'
         }].map(function(item){
- 
+
             var params = {
                 locationId:item.id
             };
@@ -74,7 +72,7 @@ var App = React.createClass({
                 )
             });
         }
-        
+
         return (
             <div>
                 {this.getLinks()}

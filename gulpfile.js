@@ -15,6 +15,12 @@ webpackConfig.devtool = 'source-map';
 var compiler = webpack(webpackConfig);
 
 
+
+gulp.task('assets', function(){
+    gulp.src('./assets/**/*')
+        .pipe(gulp.dest('./static'));
+});
+
 gulp.task('client', function(cb){
     compiler.run(function(err, stats){
         if (err) {
@@ -27,7 +33,8 @@ gulp.task('client', function(cb){
     });
 });
 
-gulp.task('server', ['client'], function(){
+
+gulp.task('server', ['assets','client'], function(){
     if (node) {
         node.kill();
     }
@@ -46,7 +53,7 @@ gulp.task('default', ['server', 'watch']);
 
 
 gulp.task('watch', function(){
-    gulp.watch(['./app/**/*', './server/**/*', './node_modules/**/*.js'], ['server']).on('change', function(event) {
+    gulp.watch(['./app/**/*', './server/**/*','./assets/**/*'], ['server']).on('change', function(event) {
         console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 });

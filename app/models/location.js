@@ -4,7 +4,7 @@ var qs = require('querystring');
 var path = require('path');
 
 var Location = Model.extend({
-    urlRoot: "http://api.openweathermap.org/data/2.5/weather",
+    urlRoot: "http://localhost:8080/api/data/2.5/weather",
     url: function() {
 
         var url = this.urlRoot + '?' + qs.stringify({

@@ -1,5 +1,5 @@
 var Model = require('ampersand-model');
-var sync = require('ubiquisync-redis');
+var sync = require('ubiquisync');
 
 var BaseModel = Model.extend({
     sync: sync

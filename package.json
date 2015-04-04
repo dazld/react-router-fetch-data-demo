@@ -28,6 +28,7 @@
     "ejs-layouts": "0.0.1",
     "express": "^4.12.3",
     "express-ejs-layouts": "^1.1.0",
+    "express-http-proxy": "^0.4.0",
     "flux": "^2.0.1",
     "gulp": "^3.8.11",
     "gulp-util": "^3.0.4",
@@ -36,6 +37,7 @@
     "node-jsx": "^0.12.4",
     "react": "^0.13.1",
     "react-router": "^0.13.1",
+    "redis": "^0.12.1",
     "ubiquisync": "^1.0.0",
     "ubiquisync-redis": "dazld/ubiquisync-redis#master",
     "webpack": "^1.7.3"

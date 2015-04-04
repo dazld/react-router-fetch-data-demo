@@ -1,4 +1,4 @@
-/* global DocumentTouch */
+/* global DocumentTouch, prefetch */
 "use strict";
 var React = require('react');
 var Router = require('react-router');
@@ -28,6 +28,8 @@ var runController = makeAppController(boundRender);
 var makeStore = require('./stores/all');
 var appStore = window.s = makeStore();
 
+appStore.locations.reset(prefetch.locations);
+
 router.run(function(Handler, state){
 
     runController(Handler, state, appStore).then(function(){
@@ -35,7 +37,7 @@ router.run(function(Handler, state){
     }).catch(function(e){
         console.log(e);
     });
-    
+
 });
 
 

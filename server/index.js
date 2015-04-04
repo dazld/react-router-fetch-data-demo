@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 var path = require('path');
-// enable jsx in node
 
+// enable jsx in node
 require('node-jsx').install({
     extension: '.jsx'
 });
@@ -12,23 +12,22 @@ var express = require('express');
 var cookieParser = require('cookie-parser');
 var expressLayouts = require('express-ejs-layouts');
 var Router = require('react-router');
-var Promise = require('bluebird');
 
 var makeController = require('../app/controllers/app');
 
 var routes = require('../app/routes/routes.jsx');
+var api = require('./api');
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('layout', 'layout');
+app.use('/api', api);
 app.use(cookieParser());
 app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, '..', 'static')));
 
-app.use('/favicon.ico', function(req, res){
-    res.send(404);
-});
+
 
 var runController = makeController(React.renderToString.bind(React));
 
@@ -45,7 +44,7 @@ app.use(function(req,res){
             console.log('Redirecting to:', destination);
         },
         onError: function(err){
-            console.log('onerror:', err);
+            // console.log('onerror:', err);
             throw err;
         },
         routes: routes,
@@ -60,7 +59,7 @@ app.use(function(req,res){
                 data: JSON.stringify(result.data)
             });
         }).catch(function(err){
-            console.log(err);
+            console.log(err.message);
             throw err;
         });
 
