@@ -1,10 +1,10 @@
 var Collection = require('ampersand-collection');
 var restMixin = require('ampersand-collection-rest-mixin');
 var Promise = require('bluebird');
-var sync = require('ubiquisync');
+var sync = require('ubiquisync-redis');
 
 
-var BaseCollection = Collection.extend({
+var BaseCollection = Collection.extend(restMixin, {
     sync: sync,
     getOrFetch: function(id, options, cb) {
         options = options || {};

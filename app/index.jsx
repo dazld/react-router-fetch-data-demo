@@ -31,7 +31,7 @@ var appStore = window.s = makeStore();
 router.run(function(Handler, state){
 
     runController(Handler, state, appStore).then(function(){
-        // console.log('render complete');
+        console.log('render complete');
     }).catch(function(e){
         console.log(e);
     });

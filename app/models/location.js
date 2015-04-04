@@ -1,10 +1,9 @@
-var Model = require('ampersand-model');
-var sync = require('ubiquisync');
+var Model = require('../lib/base-model');
+
 var qs = require('querystring');
 var path = require('path');
 
 var Location = Model.extend({
-    sync: sync,
     urlRoot: "http://api.openweathermap.org/data/2.5/weather",
     url: function() {
 

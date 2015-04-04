@@ -1,7 +1,6 @@
-var Collection = require('ampersand-collection');
+var Collection = require('../lib/base-collection');
 var restMixin = require('ampersand-collection-rest-mixin');
 var Promise = require('bluebird');
-var sync = require('ubiquisync');
 var qs = require('querystring');
 var path = require('path');
 

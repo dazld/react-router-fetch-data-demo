@@ -18,7 +18,6 @@ var Location = React.createClass({
         this.setState(this.getInitialState());
     },
     render: function() {
-        console.log(this.state.data);
         return (
             <div>
                 <h1>{this.state.data.name}</h1>

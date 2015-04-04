@@ -13,9 +13,14 @@ var SearchResults = BaseCollection.extend({
 
         return 'http://api.openweathermap.org/data/2.5/find?q='+searchTerm+'&type=like';
     },
-    parse: function(data){
-        console.log(data);
-        return data;
+    setSearchTerm: function(searchTerm){
+        this.searchTerm = searchTerm;
+    },
+    parse: function(response){
+        if (response.cod !== '200') {
+            return;
+        }
+        return response.list;
     }
 });
 
