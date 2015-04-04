@@ -20,7 +20,8 @@ var App = React.createClass({
 
     getInitialState: function(){
         return {
-            search: this.props.search || ''
+            search: this.props.search || '',
+            loading: false
         };
     },
     handleInput: function(event){
@@ -30,7 +31,11 @@ var App = React.createClass({
     },
     doSearch: function(){
         this.props.data.searchResults.setSearchTerm(this.state.search);
-        this.props.data.searchResults.fetch();
+        this.props.data.searchResults.fetch().finally(function(){
+            this.setState({
+                loading: false
+            });
+        }.bind(this)); // blerch
     },
     getLinks: function(){
         return [{
