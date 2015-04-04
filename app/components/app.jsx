@@ -12,36 +12,25 @@ var App = React.createClass({
         fetchData: function(){
             // tell store what we need
             return Promise.resolve(true);
-        },
-        // willTransitionTo: function(){
-            // check user object for validity?
-        // }
+        }
     },
     componentDidMount: function(){
-        // this.props.data.searchResults.on('all', this.setState);
         this.doSearch = _.debounce(this.doSearch, 1000);
     },
-    componentDidUnmount: function(){
-        // this.props.data.locations.off('all', this.setState);
-    },
-    componentWillReceiveProps: function(){
-        // this.props.data.locations.once('sync', this.forceUpdate)
-    },
+
     getInitialState: function(){
-        // get data from store
         return {
             search: this.props.search || ''
         };
     },
     handleInput: function(event){
-        console.log(this.check)
         this.setState({
             search: event.target.value.substr(0, 140)
         }, this.doSearch);
     },
     doSearch: function(){
         this.props.data.searchResults.setSearchTerm(this.state.search);
-        this.props.data.searchResults.fetch().then(this.forceUpdate.bind(this));
+        this.props.data.searchResults.fetch();
     },
     getLinks: function(){
         return [{
@@ -49,7 +38,7 @@ var App = React.createClass({
             id: '2950159'
         },{
             name: 'London',
-            id: '6058560'
+            id: '2643743'
         }].map(function(item){
 
             var params = {

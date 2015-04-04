@@ -20,9 +20,11 @@ var Location = React.createClass({
         this.setState(this.getInitialState());
     },
     render: function() {
+
         return (
             <div>
                 <h1>{this.state.data.name}</h1>
+                <h1>{this.state.data.main.temp}`c</h1>
                 <Router.Link to='root'>home</Router.Link>
             </div>
         );

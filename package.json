@@ -39,7 +39,6 @@
     "react-router": "^0.13.1",
     "redis": "^0.12.1",
     "ubiquisync": "^1.0.0",
-    "ubiquisync-redis": "dazld/ubiquisync-redis#master",
     "webpack": "^1.7.3"
   }
 }

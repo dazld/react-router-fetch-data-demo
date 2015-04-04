@@ -8,10 +8,8 @@ var path = require('path');
 var SearchResults = BaseCollection.extend({
     model: SearchResult,
     url: function(){
-
         var searchTerm = encodeURIComponent(this.searchTerm);
-
-        return 'http://localhost:8080/api/data/2.5/find?q='+searchTerm+'&type=like';
+        return 'http://localhost:8080/api/data/2.5/find?q='+searchTerm+'&type=like&units=metric';
     },
     setSearchTerm: function(searchTerm){
         this.searchTerm = searchTerm;
