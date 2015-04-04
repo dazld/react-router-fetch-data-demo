@@ -26,7 +26,8 @@ var App = React.createClass({
     },
     handleInput: function(event){
         this.setState({
-            search: event.target.value.substr(0, 140)
+            search: event.target.value.substr(0, 140),
+            loading: true
         }, this.doSearch);
     },
     doSearch: function(){
@@ -35,7 +36,7 @@ var App = React.createClass({
             this.setState({
                 loading: false
             });
-        }.bind(this)); // blerch
+        }.bind(this)); // @fixme
     },
     getLinks: function(){
         return [{

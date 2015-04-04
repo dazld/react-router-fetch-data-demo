@@ -17,7 +17,7 @@ var Location = React.createClass({
         };
     },
     componentWillReceiveProps: function(){
-        this.setState(this.getInitialState());
+        this.setState(this.getInitialState()); // @fixme
     },
     render: function() {
 
