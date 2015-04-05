@@ -12,20 +12,52 @@ var Location = React.createClass({
     },
     getInitialState: function(){
         var params = this.getParams();
+        var data = this.props.data.locations.get(params.locationId);
         return {
-            data: this.props.data.locations.get(params.locationId)
+            data: data,
+            windDirection: data.wind.deg
         };
+    },
+    componentDidMount: function(){
+
+        var update = function(){
+            this.setState({
+                windDirection: this.state.data.wind.deg + (-5 + Math.random() * 10)
+            });
+            setTimeout(update, Math.random() * 3000)
+        }.bind(this);
+
+        update();
+        
     },
     componentWillReceiveProps: function(){
         this.setState(this.getInitialState()); // @fixme
     },
     render: function() {
+        var data = this.state.data;
+
+
+
+        var arrowStyle = {
+            transform: 'rotate('+this.state.windDirection+'deg)'
+        };
 
         return (
-            <div>
-                <h1>{this.state.data.name}</h1>
-                <h1>{this.state.data.main.temp}`c</h1>
-                <Router.Link to='root'>home</Router.Link>
+            <div className="location">
+                <h1>{ data.name }</h1>
+                <div className="temps">
+                    <span className="min"><strong>{ data.temp_min }</strong>&deg;c /</span>
+                    <span className="now"><strong>{ data.temp }</strong>&deg;c /</span>
+                    <span className="max"><strong>{ data.temp_max }</strong>&deg;c</span>
+                </div>
+                <div className="suntimes">
+                    <div className="rise">Sunrise: {  }</div>
+                    <div className="set">Sunset: {  }</div>
+                </div>
+                <div className="wind">
+                    <div className="arrow" style={arrowStyle}></div>
+                    <div className="speed">Wind speed: {data.wind.speed}km/h</div>
+                </div>
             </div>
         );
     }

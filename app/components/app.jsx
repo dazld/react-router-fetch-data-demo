@@ -70,10 +70,22 @@ var App = React.createClass({
 
         return (
             <div>
-                {this.getLinks()}
-                <input type="text" value={this.state.search} onChange={this.handleInput} />
-                {results}
-                <Router.RouteHandler data={this.props.data} />
+                <div id="sidebar">
+                    <div className="option menu-toggle entypo-menu"></div>
+                    <div className="menu">
+                        <div className="option search"></div>
+                        <div className="option current"></div>
+                    </div>
+                </div>
+                <div id="main">
+                    <div id="content">
+                        {this.getLinks()}
+                        <input type="text" value={this.state.search} onChange={this.handleInput} />
+                        {results}
+                        <Router.RouteHandler data={this.props.data} />    
+                    </div>
+                    
+                </div>
             </div>
         );
     }
