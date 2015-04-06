@@ -1,5 +1,9 @@
 /* global DocumentTouch, prefetch */
 "use strict";
+// http://sugarjs.com/dates
+require('sugar-date');
+
+
 var React = require('react');
 var Router = require('react-router');
 var Promise = require('bluebird');
