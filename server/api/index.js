@@ -16,7 +16,17 @@ var weatherProxy = proxy('http://api.openweathermap.org', {
     },
     intercept: function(rsp, data, req, res, callback) {
         // rsp - original response from the target
-        if (rsp.statusCode !== 200 || data.cod !== '200') {
+
+        var parsedResponse;
+
+        try {
+            parsedResponse = JSON.parse(data.toString());
+        } catch(e) {
+            console.log(e);
+            parsedResponse = {};
+        }
+
+        if (rsp.statusCode !== 200 || parsedResponse.cod !== 200) {
             res.status(404); // openweather API sends 200s for just about everything,
                              // including missing data!
                              // so, need to set this up properly here. can remove it if

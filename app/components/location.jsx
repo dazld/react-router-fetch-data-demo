@@ -24,11 +24,16 @@ var Location = React.createClass({
             this.setState({
                 windDirection: this.state.data.wind.deg + (-5 + Math.random() * 10)
             });
-            setTimeout(update, Math.random() * 3000)
+            this.timeout = setTimeout(update, Math.random() * 3000)
         }.bind(this);
 
         update();
         
+    },
+    componentWillUnmount: function(){
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
     },
     componentWillReceiveProps: function(){
         this.setState(this.getInitialState()); // @fixme
