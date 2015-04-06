@@ -26,6 +26,5 @@ Batteries included demo of full react stack rendering on server and client, base
 - Cleanup data flow generally
 - UI 
 - Config
-- Better cache for external API (handle 404s correctly etc)
 - Demonstrate use of `continuation-local-storage` for user tokens inside async process
 
