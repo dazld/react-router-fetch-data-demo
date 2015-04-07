@@ -45,8 +45,8 @@ app.use(function(req,res){
         },
         onError: function(err){
             // console.log('onerror:', err);
+            res.status(500).send('something went wrong onError');
             throw err;
-            res.status(500).send('something went wrong');
         },
         routes: routes,
         location: req.url
@@ -61,7 +61,7 @@ app.use(function(req,res){
             });
         }).catch(function(err){
             console.log(err.message);
-            res.status(500).send('something went wrong in controller', err.stack);
+            res.status(500).send('something went wrong in controller' + err.stack);
             // throw err;
         });
 
